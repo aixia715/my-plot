@@ -6,17 +6,24 @@
 
 
 import csv
+import numpy as np
 
 
 class DataCsv:
     def __init__(self, path):
         self.path = path
-        l = []
+        x = []
+        y = []
         with open(path, 'rt', encoding='utf-8-sig') as f:
-            cr = csv.DictReader(f)
-            for row in cr:
-                l.append(row)
-        pass
+            cr = csv.reader(f)
+            for i, row in enumerate(cr):
+                if i == 0:
+                    continue
+                x.append(float(row[0]))
+                y.append(float(row[1]))
+
+        self.x = np.array(x)
+        self.y = np.array(y)
 
 
 if __name__ == '__main__':
