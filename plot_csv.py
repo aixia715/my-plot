@@ -13,28 +13,32 @@ import matplotlib.pyplot as plt
 
 class PlotCSV(object):
     def __init__(self):
-        self.csv_list: typing.List[DataCsv] = []
         self.plot_param = None
+        self.curve_list = []
         pass
 
-    def add_csv(self, csv_obj: DataCsv):
-        self.csv_list.append(csv_obj)
+    def add_data(self, x, y, label):
+        self.curve_list.append({
+            "x": x,
+            "y": y,
+            "label": label
+        })
 
     def set_plot_param(self, title, xlabel, ylabel, grid=False, figsize=None):
         self.plot_param = {'title': title, 'xlabel': xlabel, 'ylabel': ylabel, 'grid': grid, 'figsize': figsize}
 
     def semilogx(self):
         # 绘制x坐标为对数的图
-        colors = cm.rainbow(np.linspace(0, 1, len(self.csv_list)))
+        colors = cm.rainbow(np.linspace(0, 1, len(self.curve_list)))
         assert self.plot_param is not None
-        plt.figure(figsize=self.plot_param['figsize'])  # 新建图
+        fig = plt.figure(figsize=self.plot_param['figsize'])  # 新建图
         plt.grid(self.plot_param['grid'])
         plt.title(self.plot_param['title'], fontsize=12)
         plt.xlabel(self.plot_param['xlabel'])
         plt.ylabel(self.plot_param['ylabel'])
-        for i, csv_obj in enumerate(self.csv_list):
-            plt.semilogx(csv_obj.x, csv_obj.y, color=colors[i])
-
+        for i, curve in enumerate(self.curve_list):
+            plt.semilogx(curve['x'], curve['y'], color=colors[i], label=curve['label'])
+        fig.legend(loc=1)
         plt.show()
 
 
