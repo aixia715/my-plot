@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2022/9/27 23:01
 # @Author  : Tong Huaqing
-# @File    : plot_csv.py
+# @File    : my_plot.py
 # @Comment :
 
 from data_csv import DataCsv
@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-class PlotCSV(object):
+class MyPlot(object):
     def __init__(self):
         self.plot_param = None
         self.curve_list = []
@@ -40,17 +40,3 @@ class PlotCSV(object):
             plt.semilogx(curve['x'], curve['y'], color=colors[i], label=curve['label'])
         fig.legend(loc=1)
         plt.show()
-
-
-if __name__ == "__main__":
-    csv_obj = DataCsv(path='test_data/test.csv')
-    plot = PlotCSV()
-    plot.add_csv(csv_obj)
-    plot.set_plot_param(
-        title='Test',
-        xlabel='freq',
-        ylabel='phase noise',
-        grid=True,
-        figsize=(12, 6)
-    )
-    plot.plot('Test', 'freq', 'phase noise')
