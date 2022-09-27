@@ -7,10 +7,11 @@
 
 import csv
 import numpy as np
+from folder import filename_without_ext
 
 
 class DataCsv:
-    def __init__(self, path):
+    def __init__(self, path, name=None):
         self.path = path
         x = []
         y = []
@@ -24,6 +25,11 @@ class DataCsv:
 
         self.x = np.array(x)
         self.y = np.array(y)
+
+        if name is None:
+            self.name = filename_without_ext(self.path)
+        else:
+            self.name = name
 
 
 if __name__ == '__main__':
